@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <errno.h>
+#include <getopt.h>
+#include <sys/stat.h>
 
 #define BUF_SIZE 1024
 

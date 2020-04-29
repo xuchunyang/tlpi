@@ -7,6 +7,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 static long
 getLong(const char *s)
