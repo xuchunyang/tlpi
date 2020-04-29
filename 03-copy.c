@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/stat.h> // S_IRUSR
 
 #ifndef BUF_SIZE
 # define BUF_SIZE 1024
