@@ -16,4 +16,16 @@ int main()
         printf("NO HOME\n");
     else
         printf("$HOME is %s\n", home);
+
+    if (setenv("MSG", "hello", 0) != 0) {
+        perror("setenv");
+        exit(EXIT_FAILURE);
+    }
+    if (setenv("MSG", "HELLO", 0) != 0) {
+        perror("setenv");
+        exit(EXIT_FAILURE);
+
+    }
+    for (char** ep = environ; *ep; ep++)
+        puts(*ep);
 }
