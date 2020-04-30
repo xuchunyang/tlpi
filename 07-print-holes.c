@@ -1,4 +1,5 @@
 /* 07-print-holes.c --- Print holes */
+#define _GNU_SOURCE
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +29,7 @@ main(int argc, char* argv[])
                 perror("lseek SEEK_HOLE");
             break;
         }
-        printf("hole offset: %lld\n", offset);
+        printf("hole offset: %lld\n", (long long) offset);
         offset = lseek(fd, offset, SEEK_DATA);
         if (offset == -1) {
             if (errno != ENXIO)
