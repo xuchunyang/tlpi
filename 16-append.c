@@ -27,7 +27,7 @@ main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
     if (offset != 0) {
-        printf("offset: want 0, get %lld\n", offset);
+        printf("offset: want 0, get %lld\n", (long long) offset);
         exit(EXIT_FAILURE);
     }
 
