@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
+#include <sys/stat.h> // S_IRUSR
 
 static long
 getLong(const char *s)
