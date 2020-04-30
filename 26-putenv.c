@@ -1,4 +1,4 @@
-/* 26-putenv.c --- putenv */
+/* 26-putenv.c --- ex6-3. putenv */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +7,7 @@
 
 extern char** environ;
 
+/* NOTE 不会检查多次定义 */
 // int unsetenv(const char *)
 int
 myunsetenv(const char* name)
