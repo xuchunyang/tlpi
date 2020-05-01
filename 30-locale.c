@@ -1,5 +1,6 @@
 /* 30-locale.c --- locale */
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -24,7 +25,9 @@ main()
     printf("'%s'\n", buf);
 
     /* 继承环境变量 */
+    errno = 0;
     if (setlocale(LC_ALL, "") == NULL) {
+        perror("setlocale");
         printf("setlocale failed\n");
         exit(EXIT_FAILURE);
     }
