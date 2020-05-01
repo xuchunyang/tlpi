@@ -5,7 +5,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
-#include <uuid/uuid.h>
 #include <errno.h>
 
 static void
