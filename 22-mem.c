@@ -1,5 +1,6 @@
 /* 22-mem.c --- memory layouy */
 #include <stdio.h>
+#include <unistd.h>
 
 #ifdef __APPLE__
 #include <mach-o/getsect.h>
@@ -21,6 +22,8 @@ main()
     printf("    initialized data (edata)  %10p\n", &edata);
     printf("    uninitialized data (end)  %10p\n", &end);
 #endif
+
+    printf("    program break             %10p\n", sbrk(0));
 
     /* ex6-1 */
     static char mbuf[10240000] = {0}; /* 4.2k 没初始化的数据段，几乎不占空间 */
