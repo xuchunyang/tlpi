@@ -16,7 +16,7 @@ main()
         perror("gettimeofday");
         exit(EXIT_FAILURE);
     }
-    printf("sec: %ld, usec: %d\n", tv.tv_sec, tv.tv_usec);
+    printf("sec: %ld, usec: %ld\n", tv.tv_sec, (long) tv.tv_usec);
 
     time_t t = time(NULL);
     printf("sec: %ld\n", t);
