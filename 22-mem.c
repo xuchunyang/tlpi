@@ -26,13 +26,16 @@ main()
 #endif
 
     printf("\n\nProgram break:\n");
-    printf("    program break             %10p\n", sbrk(0));
+    printf("    initial program break     %10p\n", sbrk(0));
 #define BUF_SIZE 4096
-    char* buf = malloc(BUF_SIZE);
-    assert(buf);
-    printf("    program break             %10p\n", sbrk(0));
-    buf[BUF_SIZE - 1] = 'x';
-    printf("    program break             %10p\n", sbrk(0));
+    /* ex7-1 */
+    for (size_t i = 0; i < 1000; i++) {
+      char* buf = malloc(BUF_SIZE);
+      assert(buf);
+      printf("    program break             %10p\n", sbrk(0));
+      buf[BUF_SIZE - 1] = 'x';
+      printf("    program break             %10p\n", sbrk(0));
+    }
 
     /* ex6-1 */
     static char mbuf[10240000] = {0}; /* 4.2k 没初始化的数据段，几乎不占空间 */
