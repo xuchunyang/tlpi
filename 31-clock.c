@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <assert.h>
 #include <sys/times.h>
-#include <math.h>
 
 int
 main()
@@ -24,7 +23,7 @@ main()
 
     double sum = 0;
     for (size_t i = 0; i < 100000; i++) {
-        sum += sin(i) + 1;
+        sum += i * i;
     }
     printf("%g\n", sum);
 
