@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#define _XOPEN_SOURCE
 #include <time.h>
 #include <assert.h>
 
