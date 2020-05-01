@@ -1,6 +1,8 @@
 /* 22-mem.c --- memory layouy */
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <assert.h>
 
 #ifdef __APPLE__
 #include <mach-o/getsect.h>
@@ -23,6 +25,13 @@ main()
     printf("    uninitialized data (end)  %10p\n", &end);
 #endif
 
+    printf("\n\nProgram break:\n");
+    printf("    program break             %10p\n", sbrk(0));
+#define BUF_SIZE 4096
+    char* buf = malloc(BUF_SIZE);
+    assert(buf);
+    printf("    program break             %10p\n", sbrk(0));
+    buf[BUF_SIZE - 1] = 'x';
     printf("    program break             %10p\n", sbrk(0));
 
     /* ex6-1 */
