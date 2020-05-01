@@ -1,12 +1,25 @@
 /* 22-mem.c --- memory layouy */
 #include <stdio.h>
+
+#ifdef __APPLE__
+#include <mach-o/getsect.h>
+#endif
+
 int
 main()
 {
-#ifdef NOT_WORKING
     /* page 96 */
+#ifdef __APPLE__
+    printf("First address past:\n");
+    printf("    program text (etext)      %10p\n", (void*)get_etext());
+    printf("    initialized data (edata)  %10p\n", (void*)get_edata());
+    printf("    uninitialized data (end)  %10p\n", (void*)get_end());
+#else
     extern char etext, edata, end;
-    printf("%d\n", etext);
+    printf("First address past:\n");
+    printf("    program text (etext)      %10p\n", &etext);
+    printf("    initialized data (edata)  %10p\n", &edata);
+    printf("    uninitialized data (end)  %10p\n", &end);
 #endif
 
     /* ex6-1 */
