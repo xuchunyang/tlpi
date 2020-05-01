@@ -29,7 +29,7 @@ main()
     /* printf("%lu\n", sizeof buf3); */
 
     ssize_t totRequired = 0;
-    for (size_t i = 0; i < iovcnt; i++)
+    for (int i = 0; i < iovcnt; i++)
         totRequired += iov[i].iov_len;
 
     ssize_t numRead = readv(fd, iov, iovcnt);
@@ -41,8 +41,8 @@ main()
     if (numRead < totRequired)
         printf("Read fewer bytes than requested\n");
     else
-        for (size_t i = 0; i < iovcnt; i++) {
-            printf("%zu. '", i);
+        for (int i = 0; i < iovcnt; i++) {
+            printf("%d. '", i);
             fflush(stdout);
             ssize_t numWritten = write(STDOUT_FILENO, iov[i].iov_base, iov[i].iov_len);
             if (numWritten == -1) {
