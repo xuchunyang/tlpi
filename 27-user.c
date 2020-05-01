@@ -1,4 +1,4 @@
-/* 27-user.c --- Get current user */
+/* 27-user.c --- Access /etc/passwd */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +7,15 @@
 #include <pwd.h>
 #include <uuid/uuid.h>
 #include <errno.h>
+
+static void
+list_users()
+{
+    struct passwd* pwd = 0;
+    while ((pwd = getpwent()))
+        printf("%s\n", pwd->pw_name);
+    endpwent();
+}
 
 int
 main()
@@ -31,4 +40,7 @@ main()
         printf("home:     %s\n", pwd->pw_dir);
         printf("shell:    %s\n", pwd->pw_shell);
     }
+
+    printf("\nAll users:\n");
+    list_users();
 }
