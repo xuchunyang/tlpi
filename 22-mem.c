@@ -25,6 +25,8 @@ main()
     printf("    uninitialized data (end)  %10p\n", &end);
 #endif
 
+#if 0                           /* 避免 sbrk 的 deprecated warnings */
+
     printf("\n\nProgram break:\n");
     printf("    initial program break     %10p\n", sbrk(0));
 #define BUF_SIZE 4096
@@ -36,6 +38,8 @@ main()
       buf[BUF_SIZE - 1] = 'x';
       printf("    program break             %10p\n", sbrk(0));
     }
+
+#endif
 
     /* ex6-1 */
     static char mbuf[10240000] = {0}; /* 4.2k 没初始化的数据段，几乎不占空间 */
