@@ -1,5 +1,5 @@
 /* 29-time.c --- time */
-#define _BSD_SOURCE             /* tm_gmtoff, tm_zone */
+#define _DEFAULT_SOURCE             /* tm_gmtoff, tm_zone */
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
