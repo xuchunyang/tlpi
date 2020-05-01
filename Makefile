@@ -7,3 +7,7 @@ EXECUTABLES = $(patsubst %.c,%,$(SOURCES))
 
 .PHONY: all
 all: $(EXECUTABLES)
+
+.PHONY: clean
+clean:
+	rm -f $(EXECUTABLES)
