@@ -14,13 +14,13 @@ printStat(const char* pathname)
         return;
     }
     printf("%s:\n", pathname);
-    printf("DEVICE ID:\t%d\n", statbuf.st_dev);
-    printf("inode number:\t%llu\n", statbuf.st_ino);
-    printf("hard link number:\t%d\n", statbuf.st_nlink);
+    printf("DEVICE ID:\t%ld\n", (long) statbuf.st_dev);
+    printf("inode number:\t%llu\n", (long long) statbuf.st_ino);
+    printf("hard link number:\t%ld\n", (long) statbuf.st_nlink);
     printf("uid:\t%d\n", statbuf.st_uid);
     printf("gid:\t%d\n", statbuf.st_gid);
-    printf("DEVICE ID st_rdev:\t%d\n", statbuf.st_rdev); /* 设备文件 */
-    printf("size (bytes):\t%lld\n", statbuf.st_size);
+    printf("DEVICE ID st_rdev:\t%ld\n", (long) statbuf.st_rdev); /* 设备文件 */
+    printf("size (bytes):\t%lld\n", (long long) statbuf.st_size);
 
     printf("file type:\t");
     switch (statbuf.st_mode & S_IFMT) {
@@ -40,11 +40,18 @@ printStat(const char* pathname)
 
 
     printf("time of last access: %s",
-           ctime(&statbuf.st_atimespec.tv_sec));
+           // Not work on linux, linux uses st_atim, while macos uses st_atimespec
+           // ctime(&statbuf.st_atimespec.tv_sec),
+           ctime(&statbuf.st_atime)
+        );
     printf("time of last data modification: %s",
-           ctime(&statbuf.st_ctimespec.tv_sec));
+           // ctime(&statbuf.st_ctimespec.tv_sec)
+           ctime(&statbuf.st_ctime)
+        );
     printf("time of last file status change: %s",
-           ctime(&statbuf.st_mtimespec.tv_sec));
+           /* ctime(&statbuf.st_mtimespec.tv_sec) */
+           ctime(&statbuf.st_mtime)
+        );
 
     printf("\n");
 }
