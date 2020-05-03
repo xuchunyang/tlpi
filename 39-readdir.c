@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/dirent.h>
-#include <sys/fcntl.h>
+#include <dirent.h>
+#include <fcntl.h>
 
 static void ls(DIR* dirp);
 
