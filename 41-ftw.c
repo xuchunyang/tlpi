@@ -1,4 +1,7 @@
 /* 40-ftw.c --- file tree walker */
+
+#define _XOPEN_SOURCE 500       /* fix linux build */
+
 #include <ftw.h>
 #include <stdio.h>
 #include <stdlib.h>
