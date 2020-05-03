@@ -3,3 +3,9 @@ a.out
 ![0-9]*-*.c
 /compile_commands.json
 /tfile
+test
+x
+y
+z
+*.copy
+*.link
