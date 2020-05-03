@@ -18,4 +18,11 @@ main()
     puts("\n---\n");
     for (int i = 1; i < 32; i++)
         puts(strsignal(i));
+
+    /* 32 */
+    printf("%zu\n",
+           sizeof sys_siglist / sizeof *sys_siglist);
+
+    /* 没定义，没有 0 signal */
+    printf("%zu\n", sys_signame[0]);
 }
