@@ -25,4 +25,6 @@ main()
 
     /* 没定义，没有 0 signal */
     printf("%zu\n", sys_signame[0]);
+
+    printf("Number of signals: NSIG=%d\n", NSIG);
 }
