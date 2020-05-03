@@ -10,7 +10,8 @@ main()
     printf("'%s'\n", strsignal(SIGHUP));
     printf("'%s'\n", strsignal(SIGINT));
 
-    printf("'%s': %d\n", sys_siglist[SIGHUP], SIGHUP);
+    printf("Description: '%s': %d\n", sys_siglist[SIGHUP], SIGHUP);
+    printf("NAME: '%s': %d\n", sys_signame[SIGHUP], SIGHUP);
 
     psignal(SIGINT, "SIGINT");
 
