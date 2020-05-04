@@ -25,10 +25,5 @@ main()
     printf("%zu\n",
            sizeof sys_siglist / sizeof *sys_siglist);
 
-    /* 没定义，没有 0 signal */
-#ifdef __APPLE__
-    printf("%zu\n", sys_signame[0]);
-#endif
-
     printf("Number of signals: NSIG=%d\n", NSIG);
 }

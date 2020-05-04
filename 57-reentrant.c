@@ -5,12 +5,13 @@
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
+#define _XOPEN_SOURCE           /* crypt */
 #include <unistd.h>
 
 static int handled = 0;
 
 static void
-handler(int sig)
+handler(int sig __attribute__((unused)))
 {
     handled++;
     crypt("def", "xx");

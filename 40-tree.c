@@ -13,9 +13,7 @@ static void tree(const char* rootdir, int depth)
     if (dirp == NULL) {
         printf("opendir failed\n");
         exit(EXIT_FAILURE);
-    } else
-        // printf("open %s success\n", rootdir);
-        ;
+    }
 
     struct dirent* dp;
     errno = 0;
