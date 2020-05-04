@@ -2,6 +2,10 @@
 
 /* crypt(3) 使用静态分配变量，不可重入 */
 
+#ifndef __APPLE__               /* linux needs -lcrypt */
+int main() {}
+#else
+
 #include <signal.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,3 +36,5 @@ main()
         }
     }
 }
+
+#endif  /* __APPLE__ */
