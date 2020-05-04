@@ -1,9 +1,9 @@
 /* 29-time.c --- time */
+#define _XOPEN_SOURCE 700
 #define _DEFAULT_SOURCE             /* tm_gmtoff, tm_zone */
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#define _XOPEN_SOURCE
 #include <time.h>
 #include <assert.h>
 
