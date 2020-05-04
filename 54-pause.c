@@ -16,7 +16,14 @@ handler(int sig)
 int
 main()
 {
+    /* C-c */
     if (signal(SIGINT, handler) == SIG_ERR) {
+        perror("signal");
+        exit(EXIT_FAILURE);
+    }
+
+    /* C-z */
+    if (signal(SIGTSTP, handler) == SIG_ERR) {
         perror("signal");
         exit(EXIT_FAILURE);
     }
