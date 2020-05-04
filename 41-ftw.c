@@ -17,7 +17,8 @@ display_info(const char* fpath,
     if (tflag == FTW_NS) {
         printf("ERROR: sb 不用\n");
     }
-    printf("%s\t%lld\t%d\t%d\n", fpath, sb->st_size,
+    printf("%s\t%lld\t%d\t%d\n", fpath,
+           (long long) sb->st_size,
            /* 最后一个 / 相对于开头的偏移 */
            ftwbuf->base,
            /* 深度 */

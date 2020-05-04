@@ -11,7 +11,9 @@ main()
     printf("'%s'\n", strsignal(SIGINT));
 
     printf("Description: '%s': %d\n", sys_siglist[SIGHUP], SIGHUP);
+#ifdef __APPLE__
     printf("NAME: '%s': %d\n", sys_signame[SIGHUP], SIGHUP);
+#endif
 
     psignal(SIGINT, "SIGINT");
 
@@ -24,7 +26,9 @@ main()
            sizeof sys_siglist / sizeof *sys_siglist);
 
     /* 没定义，没有 0 signal */
+#ifdef __APPLE__
     printf("%zu\n", sys_signame[0]);
+#endif
 
     printf("Number of signals: NSIG=%d\n", NSIG);
 }

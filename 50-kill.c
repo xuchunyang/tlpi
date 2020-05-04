@@ -34,6 +34,7 @@ main(int argc, char* argv[])
     pid_t pid = getLong(argv[1]);
 
     int sig = 0;
+#ifdef __APPLE__                /* no sys_signame for linux */
     for (size_t s = 1;
          s < sizeof sys_signame / sizeof *sys_signame;
          s++)
@@ -41,6 +42,7 @@ main(int argc, char* argv[])
             sig = s;
             break;
         }
+#endif
 
     if (sig == 0) {
         sig = getLong(argv[2]);
