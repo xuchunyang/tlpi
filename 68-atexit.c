@@ -56,7 +56,7 @@ main(int argc, char* argv[])
         _exit(EXIT_SUCCESS);
     case 3:
         puts("abnormal exit via sig");
-        raise(SIGINT);
+        raise(SIGINT);          /* 2 + 128 = 130，所以 echo $? 为 130 */
         sleep(3);
     }
 }
