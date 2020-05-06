@@ -1,4 +1,4 @@
-/* 75-SIGCHILD.c --- SIGHILD */
+/* 75-SIGCHLD.c --- SIGHILD */
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
