@@ -5,11 +5,15 @@
 #include <unistd.h>
 
 int
-main()
+main(int argc, char* argv[])
 {
-    char *const argVec[] = {"git", "--version", NULL};
+    if (argc < 2) {
+        printf("usage: %s program\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    char *const argVec[] = {"app-basename", "hello", "goodbye", NULL};
     char *const envVec[] = {NULL};
-    execve("/usr/bin/git", argVec, envVec);
+    execve(argv[1], argVec, envVec);
     perror("execve");
     exit(EXIT_FAILURE);
 }
