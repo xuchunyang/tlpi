@@ -1,5 +1,5 @@
 CC	= cc
-CFLAGS	= -Wall -Wextra -Wpedantic
+CFLAGS	= -Wall -Wextra -Wpedantic -pthread
 LDFLAGS = -lm
 
 SOURCES	    = $(wildcard *.c)
