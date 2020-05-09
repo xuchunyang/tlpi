@@ -1,6 +1,6 @@
 CC	= cc
 CFLAGS	= -Wall -Wextra -Wpedantic -pthread
-LDFLAGS = -lm
+LDFLAGS = -lm -ldl
 
 SOURCES	    = $(wildcard *.c)
 EXECUTABLES = $(patsubst %.c,%,$(SOURCES))
