@@ -13,6 +13,7 @@ handler(int sig)
 int
 main()
 {
+    /* XXX not finished */
     if (signal(SIGTTIN, handler) == SIG_ERR) {
         perror("signal");
         exit(EXIT_FAILURE);
