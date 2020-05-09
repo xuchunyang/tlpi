@@ -14,10 +14,11 @@ setup()
 }
 
 static void*
-thread_start(void* arg)
+thread_start(void* arg __attribute__((unused)))
 {
     printf("thread_start\n");
     pthread_once(&once, setup);
+    return NULL;
 }
 
 int
