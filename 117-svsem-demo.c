@@ -82,12 +82,43 @@ main(int argc, char *argv[])
         printf("Semphore ID = %d\n", id);
     } else {
         int id = getInt(argv[1]);
-        if (strcmp(argv[2], "delete") == 0) {
+        if (strcmp(argv[2], "delete") == 0) { /* 删除信号量 */
             printf("Deleting Semphore ID = %d\n", id);
             if (semctl(id, 0, IPC_RMID) == -1) {
                 perror("semctl");
                 exit(EXIT_FAILURE);
             }
+        } else if (strcmp(argv[2], "info") == 0) { /* 打印信号量中所有信号量的当前值 */
+
+            /* 获得信号量的总数 semid_ds -> sem_nsems */
+            struct semid_ds ids;
+            union my_semun arg1 = {
+                .buf = &ids,
+            };
+            if (semctl(id, 0, IPC_STAT, arg1) == -1) {
+                perror("semctl");
+                exit(EXIT_FAILURE);
+            }
+
+            printf("Semphore %d 中总个有 %d 个信号量，它们的值分别为:\n",
+                   id,
+                   ids.sem_nsems);
+
+            unsigned short* vals = malloc(ids.sem_nsems * sizeof(unsigned short));
+            if (vals == NULL) {
+                perror("malloc");
+                exit(EXIT_FAILURE);
+            }
+            union my_semun arg2 = {
+                .array = vals,
+            };
+            if (semctl(id, 0, GETALL, arg2) == -1) {
+                perror("semctl");
+                exit(EXIT_FAILURE);
+            }
+            printf("Sem\tVale\n");
+            for (int i = 0; i < ids.sem_nsems; i++)
+                printf("%d\t%d\n", i, vals[i]);
         } else {
             struct sembuf sop = {
                 .sem_num = 0,
