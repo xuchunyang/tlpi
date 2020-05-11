@@ -46,6 +46,14 @@ now(char* fmt)
     return buf;
 }
 
+/* 为 Linux 自己定义 union semun，因为 glibc 可能不定义，见 p796  sys/sem.h */
+union my_semun {
+    int             val;            /* value for SETVAL */
+    struct semid_ds *buf;           /* buffer for IPC_STAT & IPC_SET */
+    unsigned short  *array;         /* array for GETALL & SETALL */
+};
+
+
 int
 main(int argc, char *argv[])
 {
@@ -63,7 +71,7 @@ main(int argc, char *argv[])
             exit(EXIT_FAILURE);
         }
 
-        union semun arg = {
+        union my_semun arg = {
             .val = getInt(argv[1]),
         };
         if (semctl(id, 0, SETVAL, arg) == -1) {
