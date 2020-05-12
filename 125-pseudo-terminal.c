@@ -12,7 +12,6 @@
 #include <time.h>
 #include <unistd.h>
 #include <termios.h>
-#include <curses.h>             /* raw, -lncurses */
 #include <sys/select.h>
 
 
@@ -23,10 +22,39 @@ die(char* s)
     exit(EXIT_FAILURE);
 }
 
+struct termios ttyOrig;
+
 static void
 cleanup()
 {
-    endwin();
+    if (tcsetattr(STDIN_FILENO, TCSANOW, &ttyOrig) == -1)
+        die("tcsetattr");
+}
+
+static void
+ttySetRaw()
+{
+    struct termios t = ttyOrig;
+    t.c_lflag &= ~(
+        ICANON                  /* 规范模式 */
+        | ECHO                  /* 回显输入 */
+        | ISIG                  /* 字符信号 */
+        | IEXTEN                /* 输入字符扩展处理 */
+        );
+
+    t.c_iflag &= ~(
+        ICRNL                   /* \r -> \n */
+        | INLCR                 /* \n -> \r */
+        | IXON
+        );
+
+    t.c_oflag &= ~OPOST;
+
+    t.c_cc[VMIN] = 1;
+    t.c_cc[VTIME] = 0;
+
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &t) == -1)
+        die("tcsetattr");
 }
 
 int
@@ -53,6 +81,17 @@ main()
     }
 
     printf("成功获得 pty 从设备： %s\n", slname);
+
+    if (tcgetattr(STDIN_FILENO, &ttyOrig) == -1) {
+        perror("tcgetattr");
+        _exit(EXIT_FAILURE);
+    }
+
+    struct winsize ws;
+    if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1) {
+        perror("ioctl");
+        _exit(EXIT_FAILURE);
+    }
 
     pid_t childPid = fork();
     if (childPid == -1) {
@@ -82,21 +121,11 @@ main()
         }
 #endif
 
-        struct termios t;
-        if (tcgetattr(STDIN_FILENO, &t) == -1) {
-            perror("tcgetattr");
-            _exit(EXIT_FAILURE);
-        }
-        if (tcsetattr(slavedFd, TCSANOW, &t) == -1) {
+        if (tcsetattr(slavedFd, TCSANOW, &ttyOrig) == -1) {
             perror("tcsetattr");
             _exit(EXIT_FAILURE);
         }
 
-        struct winsize ws;
-        if (ioctl(STDIN_FILENO, TIOCGWINSZ, &ws) == -1) {
-            perror("ioctl");
-            _exit(EXIT_FAILURE);
-        }
         if (ioctl(slavedFd, TIOCSWINSZ, &ws) == -1) {
             perror("ioctl");
             _exit(EXIT_FAILURE);
@@ -125,14 +154,7 @@ main()
 
         /* Parent: reply data between terminal and pty master */
 
-        if (initscr() == NULL) {
-            perror("initscr");
-            exit(EXIT_FAILURE);
-        }
-        if (raw() == ERR) {
-            perror("raw");
-            exit(EXIT_FAILURE);
-        }
+        ttySetRaw();
 
         if (atexit(cleanup) == -1) {
             perror("atexit");
