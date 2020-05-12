@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
-#include <sys/termios.h>
-#include <sys/ttycom.h>
 #include <sys/wait.h>
 #include <time.h>
 #include <unistd.h>
