@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
-#include <sys/signal.h>
-#include <sys/ttycom.h>
 #include <unistd.h>
 
 static void
