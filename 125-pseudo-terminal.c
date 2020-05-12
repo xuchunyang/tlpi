@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <sys/_select.h>
-#include <sys/fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/termios.h>
 #include <sys/ttycom.h>
