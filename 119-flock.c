@@ -6,6 +6,7 @@
 #include <sys/fcntl.h>
 #include <time.h>
 #include <unistd.h>
+#include <sys/file.h>           /* flock */
 
 char*
 now(char* fmt)
