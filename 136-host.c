@@ -9,6 +9,10 @@
 
 /*
 $ ./136-host.out baidu.com
+ipv4 220.181.38.148
+ipv4 39.156.69.79
+
+$ ./136-host.out example.com
 ipv4 93.184.216.34
 ipv6 2606:2800:220:1:248:1893:25c8:1946
 */
@@ -24,11 +28,11 @@ main(int argc, char* argv[])
     struct addrinfo *result;
     struct addrinfo hint = {
         .ai_family = AF_UNSPEC,
-        .ai_socktype = SOCK_DGRAM,
+        .ai_socktype = SOCK_DGRAM, /* 只查询 UDP，不然结果重复 */
         .ai_protocol = 0,
         .ai_flags = AI_ALL | AI_V4MAPPED,
     };
-    int error = getaddrinfo("example.com", NULL, &hint, &result);
+    int error = getaddrinfo(argv[1], NULL, &hint, &result);
     if (error) {
         fprintf(stderr, "%s\n", gai_strerror(error));
         exit(EXIT_FAILURE);
