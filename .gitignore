@@ -10,3 +10,5 @@ y
 z
 *.copy
 *.link
+# https://man7.org/tlpi/code/index.html
+/tlpi-dist/
