@@ -1,5 +1,7 @@
 /* 137-http-client.c --- basic http client */
+#include <arpa/inet.h>
 #include <netdb.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -63,6 +65,30 @@ main(int argc, char *argv[])
     if (rp == NULL) {
         fprintf(stderr, "can't connect to %s\n", hostname);
         exit(EXIT_FAILURE);
+    }
+
+    socklen_t len = rp->ai_addrlen;
+    struct sockaddr* addr = malloc(len);
+    if (getsockname(sfd, addr, &len) == -1) {
+        perror("getsockname");
+        exit(EXIT_FAILURE);
+    }
+    if (rp->ai_family == AF_INET) {
+        char buf[INET_ADDRSTRLEN];
+        struct sockaddr_in* iaddr = (struct sockaddr_in*) addr;
+        if (inet_ntop(AF_INET, &iaddr->sin_addr, buf, len) == NULL) {
+            perror("inet_ntop");
+            exit(EXIT_FAILURE);
+        }
+        printf("Using %s:%d\n", buf, ntohs(iaddr->sin_port));
+    } else {
+        char buf[INET6_ADDRSTRLEN];
+        struct sockaddr_in6* iaddr = (struct sockaddr_in6*) addr;
+        if (inet_ntop(AF_INET6, &iaddr->sin6_addr, buf, len) == NULL) {
+            perror("inet_ntop");
+            exit(EXIT_FAILURE);
+        }
+        printf("Using %s:%d\n", buf, ntohs(iaddr->sin6_port));
     }
 
     char req_buf[MAX_REQ_SIZE];
